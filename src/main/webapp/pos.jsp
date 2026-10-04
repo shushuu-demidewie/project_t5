@@ -12,21 +12,29 @@
         return;
     }
 
-    @SuppressWarnings("unchecked")
-    List<Category> categories = (List<Category>) request.getAttribute("categories");
-    @SuppressWarnings("unchecked")
-    List<Product> products = (List<Product>) request.getAttribute("products");
-    @SuppressWarnings("unchecked")
-    List<OrderDetail> cart = (List<OrderDetail>) session.getAttribute("cart");
+    Object catObj = request.getAttribute("categories");
+    List<Category> categories = (catObj instanceof List) ? (List<Category>) catObj : null;
+
+    Object prodObj = request.getAttribute("products");
+    List<Product> products = (prodObj instanceof List) ? (List<Product>) prodObj : null;
+
+    Object cartObj = session.getAttribute("cart");
+    List<OrderDetail> cart = (cartObj instanceof List) ? (List<OrderDetail>) cartObj : null;
 
     Integer selectedCatId = (Integer) request.getAttribute("selectedCatId");
-    if (selectedCatId == null) selectedCatId = 0;
+    if (selectedCatId == null) {
+        selectedCatId = 0;
+    }
 
     String keyword = (String) request.getAttribute("keyword");
-    if (keyword == null) keyword = "";
+    if (keyword == null) {
+        keyword = "";
+    }
 
     Double totalCartAmount = (Double) request.getAttribute("totalCartAmount");
-    if (totalCartAmount == null) totalCartAmount = 0.0;
+    if (totalCartAmount == null) {
+        totalCartAmount = 0.0;
+    }
 
     DecimalFormat df = new DecimalFormat("#,##0");
 %>
@@ -39,519 +47,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0d9488;
-            --primary-dark: #0f766e;
-            --primary-light: #ccfbf1;
-            --secondary: #f59e0b;
-            --danger: #ef4444;
-            --success: #10b981;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --bg-body: #f1f5f9;
-            --bg-card: #ffffff;
-            --border: #e2e8f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header Bar */
-        .pos-header {
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #ffffff;
-        }
-
-        .brand-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .brand-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .header-meta {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .clock-display {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            background: var(--primary-light);
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
-
-        .cashier-info {
-            font-size: 13px;
-            text-align: right;
-        }
-
-        .cashier-name {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .cashier-role {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .btn-logout {
-            padding: 7px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--danger);
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .btn-logout:hover {
-            background: var(--danger);
-            color: #ffffff;
-        }
-
-        /* POS Layout 2 Cột */
-        .pos-container {
-            display: flex;
-            flex: 1;
-            height: calc(100vh - 65px);
-            overflow: hidden;
-        }
-
-        /* Cột Trái: Thực đơn & Menu (60%) */
-        .pos-left {
-            flex: 1.2;
-            display: flex;
-            flex-direction: column;
-            padding: 16px 20px;
-            overflow-y: auto;
-            border-right: 1px solid var(--border);
-        }
-
-        /* Thanh Tìm kiếm và Danh mục */
-        .menu-filter-bar {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 8px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 10px 14px;
-            font-size: 14px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            outline: none;
-            background: #ffffff;
-        }
-
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
-        }
-
-        .btn-search {
-            padding: 10px 18px;
-            font-size: 14px;
-            font-weight: 600;
-            background: var(--primary);
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .category-pills {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .category-pill {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-            background: #ffffff;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .category-pill:hover,
-        .category-pill.active {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        /* Grid Danh Sách Món */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 14px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
-        .product-card {
-            background: #ffffff;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-            border-color: #cbd5e1;
-        }
-
-        .product-cat {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .product-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .product-price {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--danger);
-            margin-bottom: 12px;
-        }
-
-        .btn-add-cart {
-            width: 100%;
-            padding: 8px;
-            background: #f0fdf4;
-            color: var(--success);
-            border: 1px solid #bbf7d0;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            display: block;
-            transition: all 0.2s;
-        }
-
-        .btn-add-cart:hover {
-            background: var(--success);
-            color: #ffffff;
-        }
-
-        /* Cột Phải: Giỏ Hàng & Thanh Toán (40%) */
-        .pos-right {
-            flex: 0.9;
-            display: flex;
-            flex-direction: column;
-            background: #ffffff;
-            padding: 16px 20px;
-            box-shadow: -2px 0 6px rgba(0, 0, 0, 0.02);
-            overflow-y: auto;
-        }
-
-        .cart-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 12px;
-        }
-
-        .cart-title {
-            font-size: 16px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-clear-cart {
-            font-size: 12px;
-            color: var(--danger);
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* Bảng Giỏ Hàng */
-        .cart-table-wrapper {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 14px;
-        }
-
-        .cart-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        .cart-table th {
-            text-align: left;
-            padding: 8px 6px;
-            background: #f8fafc;
-            color: var(--text-muted);
-            font-size: 12px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cart-table td {
-            padding: 10px 6px;
-            border-bottom: 1px solid #f1f5f9;
-            vertical-align: middle;
-        }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-qty {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: #f8fafc;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        .btn-qty:hover {
-            background: #e2e8f0;
-        }
-
-        .qty-text {
-            font-weight: 600;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .btn-del-item {
-            color: var(--danger);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 0 4px;
-        }
-
-        .empty-cart-msg {
-            text-align: center;
-            padding: 40px 10px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Bảng Chi Tiết Thanh Toán */
-        .payment-box {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-        }
-
-        .pay-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-
-        .pay-row.total {
-            border-top: 1px dashed var(--border);
-            padding-top: 10px;
-            margin-top: 6px;
-        }
-
-        .total-label {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .total-val {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--danger);
-        }
-
-        .cash-input-row {
-            margin-top: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .cash-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .cash-input {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 16px;
-            font-weight: 700;
-            text-align: right;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            outline: none;
-            background: #ffffff;
-        }
-
-        .cash-input:focus {
-            border-color: var(--primary);
-        }
-
-        .quick-cash-tags {
-            display: flex;
-            gap: 6px;
-            margin-top: 6px;
-            flex-wrap: wrap;
-        }
-
-        .quick-tag {
-            font-size: 11px;
-            padding: 3px 8px;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .quick-tag:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .change-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .change-val {
-            color: var(--success);
-        }
-
-        .btn-checkout {
-            width: 100%;
-            padding: 14px;
-            margin-top: 14px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
-            transition: all 0.2s;
-        }
-
-        .btn-checkout:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
-
-        .btn-checkout:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/pos.css">
 </head>
 <body>
 
@@ -591,7 +87,7 @@
             <!-- Danh mục dạng Pills -->
             <div class="category-pills">
                 <a href="<%= request.getContextPath() %>/pos" 
-                   class="category-pill <%= selectedCatId == 0 ? "active" : "" %>">
+                   class="category-pill <%= (selectedCatId == 0) ? "active" : "" %>">
                     Tất cả thực đơn
                 </a>
                 <% 
@@ -599,7 +95,7 @@
                         for (Category cat : categories) { 
                 %>
                     <a href="<%= request.getContextPath() %>/pos?categoryId=<%= cat.getId() %>" 
-                       class="category-pill <%= selectedCatId == cat.getId() ? "active" : "" %>">
+                       class="category-pill <%= (selectedCatId == cat.getId()) ? "active" : "" %>">
                         <%= cat.getCategoryName() %>
                     </a>
                 <% 
@@ -617,7 +113,7 @@
             %>
                 <div class="product-card">
                     <div>
-                        <div class="product-cat"><%= p.getCategoryName() != null ? p.getCategoryName() : "Khác" %></div>
+                        <div class="product-cat"><%= (p.getCategoryName() != null) ? p.getCategoryName() : "Khác" %></div>
                         <div class="product-name"><%= p.getProductName() %></div>
                     </div>
                     <div>
@@ -645,7 +141,7 @@
             <div class="cart-title">
                 <span>🛒 Hóa đơn tạm tính</span>
                 <span style="font-size: 12px; color: var(--primary); background: var(--primary-light); padding: 2px 8px; border-radius: 12px;">
-                    <%= cart != null ? cart.size() : 0 %> món
+                    <%= (cart != null) ? cart.size() : 0 %> món
                 </span>
             </div>
             <% if (cart != null && !cart.isEmpty()) { %>
@@ -707,6 +203,9 @@
 
         <!-- Khung Thanh Toán -->
         <form action="<%= request.getContextPath() %>/checkout" method="POST" id="checkoutForm">
+            <!-- Lưu tổng tiền dưới dạng hidden input cho Javascript đọc -->
+            <input type="hidden" id="totalAmountInput" value="<%= totalCartAmount %>">
+
             <div class="payment-box">
                 <div class="pay-row total">
                     <span class="total-label">TỔNG TIỀN:</span>
@@ -720,7 +219,7 @@
                     
                     <!-- Nút gợi ý tiền nhanh -->
                     <div class="quick-cash-tags">
-                        <span class="quick-tag" onclick="setCash(<%= totalCartAmount %>)">Vừa đủ</span>
+                        <span class="quick-tag" onclick="setCash(<%= totalCartAmount.longValue() %>)">Vừa đủ</span>
                         <span class="quick-tag" onclick="setCash(50000)">50.000</span>
                         <span class="quick-tag" onclick="setCash(100000)">100.000</span>
                         <span class="quick-tag" onclick="setCash(200000)">200.000</span>
@@ -743,59 +242,8 @@
 
 </main>
 
-<script>
-    // Đồng hồ chạy thời gian thực
-    function updateClock() {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('vi-VN', { hour12: false });
-        document.getElementById('clock').textContent = timeStr;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Tính toán tiền thừa theo thời gian thực
-    const totalAmount = <%= totalCartAmount %>;
-
-    function formatNumber(num) {
-        return new Intl.NumberFormat('vi-VN').format(num);
-    }
-
-    function calculateChange() {
-        const cashInput = document.getElementById('customerCash');
-        const changeDisplay = document.getElementById('changeMoneyDisplay');
-        const rawCash = cashInput.value.replace(/[^0-9]/g, '');
-        const customerCash = rawCash ? parseFloat(rawCash) : 0;
-
-        const change = customerCash - totalAmount;
-
-        if (customerCash < totalAmount) {
-            changeDisplay.textContent = 'Còn thiếu: ' + formatNumber(Math.abs(change)) + ' đ';
-            changeDisplay.style.color = '#ef4444'; // Đỏ
-        } else {
-            changeDisplay.textContent = formatNumber(change) + ' đ';
-            changeDisplay.style.color = '#10b981'; // Xanh lá
-        }
-    }
-
-    function setCash(amount) {
-        document.getElementById('customerCash').value = formatNumber(amount);
-        calculateChange();
-    }
-
-    // Phím tắt F9 để thanh toán nhanh
-    window.addEventListener('keydown', function(e) {
-        if (e.key === 'F9') {
-            e.preventDefault();
-            const btnPay = document.getElementById('btnPay');
-            if (btnPay && !btnPay.disabled) {
-                document.getElementById('checkoutForm').submit();
-            }
-        }
-    });
-
-    // Khởi chạy tính tiền thừa ban đầu
-    calculateChange();
-</script>
+<!-- File script xử lý tính tiền và đồng hồ -->
+<script src="<%= request.getContextPath() %>/js/pos.js"></script>
 
 </body>
 </html>

@@ -11,10 +11,10 @@
         return;
     }
 
-    @SuppressWarnings("unchecked")
-    List<OrderDetail> details = (List<OrderDetail>) request.getAttribute("invoiceDetails");
+    Object detailsObj = request.getAttribute("invoiceDetails");
+    List<OrderDetail> details = (detailsObj instanceof List) ? (List<OrderDetail>) detailsObj : null;
     Double customerCash = (Double) request.getAttribute("customerCash");
-    if (customerCash == null) customerCash = order.getTotalAmount();
+    if (customerCash == null && order != null) customerCash = order.getTotalAmount();
 
     Double changeMoney = (Double) request.getAttribute("changeMoney");
     if (changeMoney == null) changeMoney = 0.0;
