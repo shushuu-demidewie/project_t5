@@ -138,7 +138,11 @@
     </button>
     <a href="<%= request.getContextPath() %>/pos" class="btn btn-new-order">
         <span>➕</span>
-        <span>Tạo Đơn Hàng Mới</span>
+        <span>Đơn Mới</span>
+    </a>
+    <a href="<%= request.getContextPath() %>/orders" class="btn btn-new-order">
+        <span>📋</span>
+        <span>Lịch Sử</span>
     </a>
 </div>
 

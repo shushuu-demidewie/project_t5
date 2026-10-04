@@ -287,6 +287,30 @@ body {
     transform: translateY(-1px);
 }
 
+.btn-orders-nav {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-hover);
+    background: var(--primary-light);
+    border: 1px solid rgba(13, 148, 136, 0.25);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-orders-nav:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 10px var(--primary-glow);
+    transform: translateY(-1px);
+}
+
+
 /* ========================================================
    MAIN POS WORKSPACE (2 CỘT TỶ LỆ VÀNG)
    ======================================================== */

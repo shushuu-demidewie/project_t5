@@ -97,6 +97,12 @@
             </div>
         </div>
 
+        <!-- Nút Xem Lịch Sử Đơn Hàng -->
+        <a href="<%= request.getContextPath() %>/orders" class="btn-orders-nav">
+            <span>📋</span>
+            <span>Lịch sử đơn</span>
+        </a>
+
         <!-- Nút Đăng xuất -->
         <a href="<%= request.getContextPath() %>/logout" class="btn-logout" 
            onclick="return confirm('Bạn có chắc chắn muốn đăng xuất khỏi ca làm việc?')">
