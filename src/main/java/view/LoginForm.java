@@ -87,7 +87,6 @@ public class LoginForm extends JFrame {
         textStack.add(lblTitle);
         textStack.add(lblSubTitle);
 
-        headerPanel.add(lblLogo, BorderLayout.NORTH);
         headerPanel.add(textStack, BorderLayout.CENTER);
 
         // Form Input Panel
@@ -143,7 +142,7 @@ public class LoginForm extends JFrame {
         lblQuick.setForeground(new Color(100, 116, 139));
         demoBox.add(lblQuick);
 
-        JButton btnQuickAdmin = new JButton("👑 Quản trị: admin");
+        JButton btnQuickAdmin = new JButton("Quản trị: admin");
         btnQuickAdmin.setFont(new Font("Segoe UI", Font.BOLD, 11));
         btnQuickAdmin.setBackground(Color.WHITE);
         btnQuickAdmin.setForeground(COLOR_PRIMARY);
@@ -155,7 +154,7 @@ public class LoginForm extends JFrame {
             txtPassword.setText("123456");
         });
 
-        JButton btnQuickStaff = new JButton("⚡ Thu ngân: staff01");
+        JButton btnQuickStaff = new JButton("Thu ngân: staff01");
         btnQuickStaff.setFont(new Font("Segoe UI", Font.BOLD, 11));
         btnQuickStaff.setBackground(Color.WHITE);
         btnQuickStaff.setForeground(COLOR_PRIMARY);

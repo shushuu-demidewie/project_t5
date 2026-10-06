@@ -50,7 +50,6 @@
 <!-- Header Bar -->
 <header class="orders-header">
     <div class="brand-section">
-        <div class="brand-icon">📋</div>
         <div class="brand-info">
             <h1>LỊCH SỬ ĐƠN HÀNG & DOANH THU</h1>
             <p>Hệ thống tra cứu biên lai và thống kê bán hàng</p>
@@ -59,7 +58,6 @@
 
     <div class="nav-actions">
         <a href="<%= request.getContextPath() %>/pos" class="btn-nav-pos">
-            <span>🛒</span>
             <span>Quay lại Bán hàng (POS)</span>
         </a>
     </div>
@@ -70,7 +68,6 @@
     <!-- 4 Thẻ Thống Kê Tổng Quan -->
     <section class="stats-grid">
         <div class="stat-card">
-            <div class="stat-icon-wrapper icon-today-rev">💰</div>
             <div class="stat-info">
                 <span class="stat-label">Doanh thu hôm nay</span>
                 <span class="stat-val"><%= df.format(todayRevenue) %> đ</span>
@@ -78,7 +75,6 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon-wrapper icon-today-cnt">⚡</div>
             <div class="stat-info">
                 <span class="stat-label">Đơn bán hôm nay</span>
                 <span class="stat-val"><%= todayOrdersCount %> đơn</span>
@@ -86,7 +82,6 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon-wrapper icon-all-rev">📈</div>
             <div class="stat-info">
                 <span class="stat-label">Tổng doanh thu</span>
                 <span class="stat-val"><%= df.format(totalRevenue) %> đ</span>
@@ -94,7 +89,6 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon-wrapper icon-all-cnt">📦</div>
             <div class="stat-info">
                 <span class="stat-label">Tổng hóa đơn lưu</span>
                 <span class="stat-val"><%= totalOrdersCount %> đơn</span>
@@ -106,7 +100,6 @@
     <section class="toolbar-card">
         <form action="<%= request.getContextPath() %>/orders" method="GET" class="search-orders-form">
             <div class="search-input-box">
-                <span>🔍</span>
                 <input type="text" name="keyword" placeholder="Nhập mã hóa đơn (#HD...) hoặc tên thu ngân..." 
                        value="<%= keyword %>">
             </div>
@@ -166,7 +159,6 @@
                             <td style="text-align: center;">
                                 <a href="<%= request.getContextPath() %>/orders?action=view&id=<%= o.getId() %>" 
                                    class="btn-view-receipt" title="Xem chi tiết và in lại hóa đơn này">
-                                    <span>📄</span>
                                     <span>Xem & In</span>
                                 </a>
                             </td>

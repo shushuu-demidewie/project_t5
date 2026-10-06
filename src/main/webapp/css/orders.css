@@ -1,28 +1,26 @@
 @charset "UTF-8";
 /* ========================================================
-   GIAO DIỆN LỊCH SỬ ĐƠN HÀNG & THỐNG KÊ DOANH THU
+   GIAO DIỆN LỊCH SỬ ĐƠN HÀNG - TỐI GIẢN & CƠ BẢN (MINIMALIST)
    ======================================================== */
 
 :root {
     --primary: #0d9488;
     --primary-hover: #0f766e;
-    --primary-light: #ccfbf1;
-    --primary-glow: rgba(13, 148, 136, 0.2);
-    --accent: #f59e0b;
-    --danger: #ef4444;
-    --success: #10b981;
-    --success-light: #ecfdf5;
+    --primary-light: #f0fdfa;
+    --primary-border: #ccfbf1;
     
     --text-main: #0f172a;
     --text-body: #334155;
     --text-muted: #64748b;
     --bg-page: #f8fafc;
     --bg-surface: #ffffff;
+    --bg-subtle: #f1f5f9;
     --border: #e2e8f0;
+    --border-dark: #cbd5e1;
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
     --radius-full: 9999px;
 }
 
@@ -42,19 +40,17 @@ body {
     flex-direction: column;
 }
 
-/* Header (đồng bộ với POS) */
+/* Header Bar */
 .orders-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(16px);
+    background: var(--bg-surface);
     border-bottom: 1px solid var(--border);
-    padding: 12px 28px;
+    padding: 10px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .brand-section {
@@ -64,21 +60,20 @@ body {
 }
 
 .brand-icon {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, #0d9488 0%, #047857 100%);
-    border-radius: var(--radius-md);
+    width: 36px;
+    height: 36px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    color: #ffffff;
-    box-shadow: 0 4px 10px var(--primary-glow);
+    font-size: 18px;
 }
 
 .brand-info h1 {
-    font-size: 17px;
-    font-weight: 800;
+    font-size: 15px;
+    font-weight: 700;
     color: var(--text-main);
 }
 
@@ -90,72 +85,63 @@ body {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .btn-nav-pos {
-    padding: 9px 18px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    padding: 7px 14px;
+    background: var(--primary);
     color: #ffffff;
     font-size: 13px;
-    font-weight: 700;
-    border-radius: var(--radius-md);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px var(--primary-glow);
-    transition: all 0.2s;
+    gap: 6px;
+    transition: background-color 0.15s;
 }
 
 .btn-nav-pos:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px var(--primary-glow);
+    background: var(--primary-hover);
 }
 
 /* Main Container */
 .orders-container {
-    max-width: 1240px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 24px 20px 40px;
+    padding: 20px 20px 40px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 /* Stat Cards */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
 }
 
 .stat-card {
     background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px;
+    border-radius: var(--radius-md);
+    padding: 16px;
     display: flex;
     align-items: center;
-    gap: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    gap: 14px;
 }
 
 .stat-icon-wrapper {
-    width: 52px;
-    height: 52px;
-    border-radius: var(--radius-md);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-size: 20px;
 }
 
 .icon-today-rev { background: #ecfdf5; color: #059669; }
@@ -169,41 +155,39 @@ body {
 }
 
 .stat-label {
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .stat-val {
-    font-size: 22px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--text-main);
-    letter-spacing: -0.5px;
 }
 
 /* Toolbar & Filter */
 .toolbar-card {
     background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
 .search-orders-form {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex: 1;
-    max-width: 480px;
+    max-width: 440px;
 }
 
 .search-input-box {
@@ -213,37 +197,38 @@ body {
 
 .search-input-box span {
     position: absolute;
-    left: 14px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
+    font-size: 13px;
     color: var(--text-muted);
 }
 
 .search-input-box input {
     width: 100%;
-    padding: 10px 14px 10px 38px;
-    font-size: 14px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-md);
+    padding: 8px 12px 8px 34px;
+    font-size: 13px;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-sm);
     outline: none;
-    transition: all 0.2s;
+    transition: border-color 0.15s;
 }
 
 .search-input-box input:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-glow);
+    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15);
 }
 
 .btn-filter {
-    padding: 10px 18px;
+    padding: 8px 16px;
     background: var(--primary);
     color: #ffffff;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background-color 0.15s;
 }
 
 .btn-filter:hover {
@@ -251,8 +236,8 @@ body {
 }
 
 .filter-meta-text {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
     color: var(--text-muted);
 }
 
@@ -260,8 +245,7 @@ body {
 .table-card {
     background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 
@@ -272,103 +256,104 @@ body {
 }
 
 .orders-table thead th {
-    background: #f8fafc;
-    padding: 14px 18px;
+    background: var(--bg-page);
+    padding: 10px 14px;
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1.5px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .orders-table tbody tr {
     border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
+    transition: background-color 0.1s;
+}
+
+.orders-table tbody tr:last-child {
+    border-bottom: none;
 }
 
 .orders-table tbody tr:hover {
-    background: #f8fafc;
+    background: var(--bg-page);
 }
 
 .orders-table td {
-    padding: 14px 18px;
+    padding: 10px 14px;
     vertical-align: middle;
 }
 
 .order-code-badge {
-    display: inline-block;
     font-family: monospace;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--primary-hover);
-    background: var(--primary-light);
-    padding: 4px 8px;
-    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-main);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    padding: 3px 6px;
+    border-radius: 4px;
 }
 
 .order-date-text {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
     color: var(--text-body);
 }
 
 .cashier-name-text {
-    font-weight: 600;
+    font-size: 12px;
     color: var(--text-main);
 }
 
 .total-amount-badge {
-    font-size: 14px;
-    font-weight: 800;
-    color: #047857;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .status-paid-pill {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
     background: #ecfdf5;
     color: #059669;
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
     border: 1px solid #a7f3d0;
 }
 
 .btn-view-receipt {
-    padding: 7px 14px;
+    padding: 5px 10px;
     background: var(--bg-surface);
-    color: var(--primary-hover);
-    border: 1.5px solid var(--primary-light);
+    color: var(--text-main);
+    border: 1px solid var(--border-dark);
     border-radius: var(--radius-sm);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    transition: all 0.2s;
+    transition: background-color 0.15s, border-color 0.15s;
 }
 
 .btn-view-receipt:hover {
-    background: var(--primary);
-    color: #ffffff;
+    background: var(--bg-subtle);
     border-color: var(--primary);
-    box-shadow: 0 4px 10px var(--primary-glow);
+    color: var(--primary);
 }
 
 /* Empty Orders State */
 .empty-orders-box {
     text-align: center;
-    padding: 60px 20px;
+    padding: 50px 20px;
     color: var(--text-muted);
 }
 
 .empty-orders-box span {
-    font-size: 48px;
+    font-size: 40px;
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }

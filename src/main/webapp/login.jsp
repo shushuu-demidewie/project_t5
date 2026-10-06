@@ -14,15 +14,9 @@
 </head>
 <body>
 
-<!-- Ambient Boba Bubbles Background -->
-<div class="bubble bubble-1"></div>
-<div class="bubble bubble-2"></div>
-<div class="bubble bubble-3"></div>
-
 <!-- Login Card -->
 <div class="login-card">
     <div class="card-header">
-        <div class="brand-icon-box">🧋</div>
         <span class="brand-badge">Boba & Coffee POS</span>
         <h1>ĐĂNG NHẬP HỆ THỐNG</h1>
         <p>Quản lý bán hàng & thu ngân chuyên nghiệp</p>
@@ -34,7 +28,6 @@
             if (errorMsg != null && !errorMsg.isEmpty()) { 
         %>
             <div class="alert-error">
-                <span>⚠️</span>
                 <span><%= errorMsg %></span>
             </div>
         <% } %>
@@ -43,7 +36,6 @@
             <div class="form-group">
                 <label class="form-label" for="username">Tên đăng nhập</label>
                 <div class="input-wrapper">
-                    <span class="input-icon">👤</span>
                     <input type="text" id="username" name="username" class="form-input" 
                            placeholder="Nhập tên tài khoản..." required autofocus
                            value="<%= request.getAttribute("username") != null ? request.getAttribute("username") : "" %>">
@@ -53,36 +45,31 @@
             <div class="form-group">
                 <label class="form-label" for="password">Mật khẩu</label>
                 <div class="input-wrapper">
-                    <span class="input-icon">🔒</span>
                     <input type="password" id="password" name="password" class="form-input" 
                            placeholder="Nhập mật khẩu..." required>
-                    <button type="button" class="toggle-pwd-btn" id="togglePwdBtn" onclick="togglePasswordVisibility()" title="Ẩn/Hiện mật khẩu">👁️</button>
+                    <button type="button" class="toggle-pwd-btn" id="togglePwdBtn" onclick="togglePasswordVisibility()" title="Ẩn/Hiện mật khẩu">Hiện</button>
                 </div>
             </div>
 
             <button type="submit" class="btn-submit" id="submitBtn">
                 <span>Đăng nhập hệ thống</span>
-                <span>→</span>
             </button>
         </form>
 
         <!-- Quick Demo Accounts Autofill -->
         <div class="demo-box">
             <div class="demo-title">
-                <span>⚡</span>
                 <span>Tài khoản thử nghiệm (Bấm để điền nhanh)</span>
             </div>
             <div class="demo-chips">
                 <div class="demo-chip" onclick="fillForm('admin', '123456')">
                     <div class="demo-chip-role">
-                        <span>👑</span>
                         <span>Quản Trị Viên</span>
                     </div>
                     <span class="demo-chip-cred">admin / 123456</span>
                 </div>
                 <div class="demo-chip" onclick="fillForm('staff01', '123')">
                     <div class="demo-chip-role">
-                        <span>💼</span>
                         <span>Thu Ngân Ca Trực</span>
                     </div>
                     <span class="demo-chip-cred">staff01 / 123</span>
@@ -111,10 +98,10 @@
         var btn = document.getElementById('togglePwdBtn');
         if (pInput.type === 'password') {
             pInput.type = 'text';
-            btn.textContent = '🙈';
+            btn.textContent = 'Ẩn';
         } else {
             pInput.type = 'password';
-            btn.textContent = '👁️';
+            btn.textContent = 'Hiện';
         }
     }
 </script>

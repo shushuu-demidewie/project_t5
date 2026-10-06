@@ -1,15 +1,18 @@
 @charset "UTF-8";
 /* ========================================================
-   HÓA ĐƠN THANH TOÁN - GIAO DIỆN BIÊN LAI NHIỆT CHUYÊN NGHIỆP
+   HÓA ĐƠN THANH TOÁN - THIẾT KẾ CƠ BẢN, TỐI GIẢN (MINIMALIST)
    ======================================================== */
 
 :root {
     --primary: #0d9488;
-    --primary-dark: #0f766e;
+    --primary-hover: #0f766e;
     --text-main: #0f172a;
     --text-muted: #64748b;
     --border: #e2e8f0;
-    --success: #10b981;
+    --border-dark: #cbd5e1;
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --success: #059669;
 }
 
 * {
@@ -21,103 +24,83 @@
 }
 
 body {
-    background-color: #f1f5f9;
+    background-color: var(--bg-page);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 16px;
+    padding: 32px 16px;
 }
 
-/* Bill Paper Card with realistic receipt shadow */
+/* Bill Paper Card */
 .bill-card {
     width: 100%;
     max-width: 420px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
-    padding: 32px 26px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 28px 24px;
     position: relative;
-    overflow: hidden;
-}
-
-/* Top colored accent line */
-.bill-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, #0d9488, #10b981, #f59e0b);
-}
-
-/* Rubber Stamp Badge */
-.paid-stamp {
-    position: absolute;
-    top: 90px;
-    right: 20px;
-    border: 3px solid rgba(16, 185, 129, 0.4);
-    color: #10b981;
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 4px 12px;
-    border-radius: 8px;
-    transform: rotate(12deg);
-    pointer-events: none;
-    opacity: 0.85;
 }
 
 /* Store Header */
 .bill-header {
     text-align: center;
-    border-bottom: 2px dashed #cbd5e1;
-    padding-bottom: 18px;
-    margin-bottom: 18px;
-}
-
-.shop-icon {
-    font-size: 32px;
-    margin-bottom: 6px;
-    display: inline-block;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .shop-name {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 800;
-    letter-spacing: -0.3px;
     color: var(--text-main);
     margin-bottom: 4px;
+    letter-spacing: -0.2px;
 }
 
 .shop-info {
     font-size: 12px;
     color: var(--text-muted);
     line-height: 1.5;
+    margin-bottom: 12px;
 }
 
-.bill-title-badge {
-    display: inline-block;
-    background: #f1f5f9;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
+.bill-title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.bill-title {
+    font-size: 14px;
     font-weight: 700;
-    color: var(--text-main);
-    margin-top: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: var(--text-main);
+}
+
+.paid-badge {
+    display: inline-block;
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
 /* Meta Data */
 .bill-meta {
     font-size: 12px;
-    color: #475569;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     line-height: 1.8;
 }
 
@@ -131,7 +114,7 @@ body {
 }
 
 .meta-val {
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-main);
 }
 
@@ -140,13 +123,13 @@ body {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .bill-table th {
     text-align: left;
     padding: 8px 0;
-    border-bottom: 1.5px solid #cbd5e1;
+    border-bottom: 1px solid var(--border-dark);
     color: var(--text-muted);
     font-size: 11px;
     font-weight: 700;
@@ -155,24 +138,25 @@ body {
 }
 
 .bill-table td {
-    padding: 9px 0;
-    border-bottom: 1px dashed #e2e8f0;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
     vertical-align: middle;
 }
 
 .item-name {
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-main);
 }
 
 .item-qty {
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
 }
 
 .item-price {
     color: var(--text-muted);
     text-align: right;
+    font-size: 12px;
 }
 
 .item-total {
@@ -183,58 +167,58 @@ body {
 
 /* Calculation summary */
 .bill-calc {
-    border-top: 2px dashed #cbd5e1;
-    padding-top: 14px;
-    margin-bottom: 18px;
+    border-top: 1px solid var(--border-dark);
+    padding-top: 12px;
+    margin-bottom: 16px;
 }
 
 .calc-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-size: 13px;
 }
 
 .calc-row.grand-total {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 800;
-    color: #047857;
-    padding: 10px 0;
-    border-top: 1px solid #e2e8f0;
-    border-bottom: 1px solid #e2e8f0;
-    margin: 10px 0;
+    color: var(--text-main);
+    padding: 8px 0;
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+    margin: 8px 0;
 }
 
-/* Barcode & QR Code simulation */
+/* Barcode */
 .barcode-section {
     text-align: center;
-    margin-bottom: 16px;
-    padding: 10px 0;
+    margin-bottom: 14px;
+    padding: 8px 0;
 }
 
 .simulated-barcode {
-    height: 38px;
+    height: 32px;
     background: repeating-linear-gradient(
         90deg,
-        #1e293b,
-        #1e293b 2px,
+        #334155,
+        #334155 2px,
         transparent 2px,
         transparent 4px,
-        #1e293b 4px,
-        #1e293b 7px,
+        #334155 4px,
+        #334155 7px,
         transparent 7px,
         transparent 9px
     );
-    width: 75%;
+    width: 65%;
     margin: 0 auto 6px;
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 .barcode-text {
     font-family: monospace;
     font-size: 11px;
     color: var(--text-muted);
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
 /* Footer note */
@@ -243,40 +227,36 @@ body {
     font-size: 12px;
     color: var(--text-muted);
     line-height: 1.5;
-    border-top: 1px dashed #cbd5e1;
-    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
 }
 
 .wifi-note {
     font-size: 11px;
-    margin-top: 6px;
-    background: #f8fafc;
-    padding: 4px 8px;
-    border-radius: 6px;
-    display: inline-block;
-    color: var(--text-main);
+    margin-top: 4px;
+    color: var(--text-muted);
 }
 
 /* Action Buttons */
 .action-buttons {
     display: flex;
-    gap: 12px;
-    margin-top: 22px;
+    gap: 10px;
+    margin-top: 18px;
     width: 100%;
     max-width: 420px;
 }
 
 .btn {
     flex: 1;
-    padding: 13px 18px;
-    font-size: 14px;
-    font-weight: 700;
-    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    transition: all 0.2s;
-    border: none;
+    transition: background-color 0.15s, border-color 0.15s;
+    border: 1px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,27 +264,23 @@ body {
 }
 
 .btn-print {
-    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+    background: var(--primary);
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
 }
 
 .btn-print:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(13, 148, 136, 0.4);
+    background: var(--primary-hover);
 }
 
 .btn-new-order {
     background: #ffffff;
     color: var(--text-main);
-    border: 1.5px solid var(--border);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
 }
 
 .btn-new-order:hover {
     background: #f8fafc;
-    border-color: #cbd5e1;
-    transform: translateY(-1px);
+    border-color: var(--border-dark);
 }
 
 /* Print Optimization */
@@ -318,10 +294,7 @@ body {
         box-shadow: none;
         border: none;
         max-width: 100%;
-        padding: 10px;
-    }
-    .bill-card::before {
-        display: none;
+        padding: 0;
     }
     .action-buttons {
         display: none;

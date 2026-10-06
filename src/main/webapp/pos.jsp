@@ -63,7 +63,7 @@
 <!-- Header Bar -->
 <header class="pos-header">
     <div class="header-brand">
-        <div class="brand-logo">🧋</div>
+        <div class="brand-logo">POS</div>
         <div class="brand-text">
             <div class="brand-title">
                 BOBA & COFFEE STATION
@@ -99,14 +99,12 @@
 
         <!-- Nút Xem Lịch Sử Đơn Hàng -->
         <a href="<%= request.getContextPath() %>/orders" class="btn-orders-nav">
-            <span>📋</span>
             <span>Lịch sử đơn</span>
         </a>
 
         <!-- Nút Đăng xuất -->
         <a href="<%= request.getContextPath() %>/logout" class="btn-logout" 
            onclick="return confirm('Bạn có chắc chắn muốn đăng xuất khỏi ca làm việc?')">
-            <span>🚪</span>
             <span>Đăng xuất</span>
         </a>
     </div>
@@ -133,27 +131,19 @@
                 </button>
             </form>
 
-            <!-- Danh mục dạng Pills có Icons sinh động -->
+            <!-- Danh mục dạng Pills -->
             <div class="category-pills">
                 <a href="<%= request.getContextPath() %>/pos" 
                    class="category-pill <%= (selectedCatId == 0) ? "active" : "" %>">
-                    <span class="pill-icon">✨</span>
                     <span>Tất cả thực đơn</span>
                 </a>
                 <% 
                     if (categories != null) {
                         for (Category cat : categories) { 
                             String catName = cat.getCategoryName();
-                            String pillIcon = "🥤";
-                            if (catName.contains("Trà Sữa")) pillIcon = "🧋";
-                            else if (catName.contains("Quả") || catName.contains("Trái")) pillIcon = "🍑";
-                            else if (catName.contains("Cà Phê") || catName.contains("Cafe")) pillIcon = "☕";
-                            else if (catName.contains("Đá Xay") || catName.contains("Sinh Tố")) pillIcon = "🍧";
-                            else if (catName.contains("Topping")) pillIcon = "🍮";
                 %>
                     <a href="<%= request.getContextPath() %>/pos?categoryId=<%= cat.getId() %>" 
                        class="category-pill <%= (selectedCatId == cat.getId()) ? "active" : "" %>">
-                        <span class="pill-icon"><%= pillIcon %></span>
                         <span><%= catName %></span>
                     </a>
                 <% 
@@ -191,9 +181,8 @@
             %>
                 <div class="product-card" onclick="window.location.href='<%= request.getContextPath() %>/cart?action=add&productId=<%= p.getId() %>'">
                     <!-- Drink visual container -->
-                    <div class="product-visual" style="background: <%= visualBg %>;">
+                    <div class="product-visual">
                         <span class="product-emoji"><%= pEmoji %></span>
-                        <span class="product-status-tag">Sẵn sàng</span>
                     </div>
 
                     <!-- Thông tin món -->
@@ -244,7 +233,7 @@
         <!-- Tiêu đề giỏ hàng & chuyển chế độ -->
         <div class="cart-header">
             <div class="cart-title">
-                <span>🛒 Đơn Hàng</span>
+                <span>Đơn Hàng</span>
                 <span class="cart-badge"><%= totalItemCount %> món</span>
             </div>
 
@@ -371,7 +360,7 @@
             <!-- Nút Xác Nhận Thanh Toán To Rõ Ràng -->
             <button type="submit" class="btn-checkout" id="btnPay" 
                     <%= (cart == null || cart.isEmpty()) ? "disabled" : "" %>>
-                <span>⚡ XÁC NHẬN THANH TOÁN</span>
+                <span>XÁC NHẬN THANH TOÁN</span>
                 <span class="shortcut-badge">F9</span>
             </button>
         </form>

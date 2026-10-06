@@ -41,18 +41,17 @@
 <body>
 
 <div class="bill-card">
-    <!-- Con dấu cao su Đã Thanh Toán -->
-    <div class="paid-stamp">ĐÃ THANH TOÁN</div>
-
     <!-- Thông tin cửa hàng -->
     <div class="bill-header">
-        <div class="shop-icon">🧋</div>
         <div class="shop-name">BOBA & COFFEE STATION</div>
         <div class="shop-info">
             123 Đường Hoa Sữa, Quận 1, TP. Hồ Chí Minh<br>
-            Hotline: 1900 6868 - Giờ mở cửa: 07:00 - 23:00
+            Hotline: 1900 6868 • Giờ mở cửa: 07:00 - 23:00
         </div>
-        <div class="bill-title-badge">PHIẾU THANH TOÁN BÁN HÀNG</div>
+        <div class="bill-title-wrap">
+            <h2 class="bill-title">HÓA ĐƠN THANH TOÁN</h2>
+            <span class="paid-badge">Đã thanh toán</span>
+        </div>
     </div>
 
     <!-- Thông tin hóa đơn -->
@@ -126,22 +125,19 @@
     <!-- Lời cảm ơn và wifi -->
     <div class="bill-footer">
         <p>Cảm ơn quý khách và hẹn gặp lại!</p>
-        <div class="wifi-note">📶 Wi-Fi: BobaCoffee_Guest • Mật khẩu: 88888888</div>
+        <div class="wifi-note">Wi-Fi: BobaCoffee_Guest • Mật khẩu: 88888888</div>
     </div>
 </div>
 
 <!-- Nút hành động ngoài hóa đơn -->
 <div class="action-buttons">
     <button class="btn btn-print" onclick="window.print()">
-        <span>🖨️</span>
         <span>In Hóa Đơn (Ctrl + P)</span>
     </button>
     <a href="<%= request.getContextPath() %>/pos" class="btn btn-new-order">
-        <span>➕</span>
         <span>Đơn Mới</span>
     </a>
     <a href="<%= request.getContextPath() %>/orders" class="btn btn-new-order">
-        <span>📋</span>
         <span>Lịch Sử</span>
     </a>
 </div>

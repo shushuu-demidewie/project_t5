@@ -179,9 +179,7 @@ public class POSMainForm extends JFrame {
         JPanel brandPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
         brandPanel.setOpaque(false);
 
-        JLabel lblLogo = new JLabel("🧋");
-        lblLogo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 28));
-        brandPanel.add(lblLogo);
+
 
         JPanel titleBox = new JPanel(new GridLayout(2, 1, 0, 2));
         titleBox.setOpaque(false);
@@ -232,12 +230,12 @@ public class POSMainForm extends JFrame {
         rightMetaPanel.add(lblUserInfo);
 
         // Nút xem lịch sử hóa đơn
-        JButton btnHistory = createStyledButton("📋 Lịch sử đơn", new Color(13, 148, 136), Color.WHITE, 12);
+        JButton btnHistory = createStyledButton("Lịch sử đơn", new Color(13, 148, 136), Color.WHITE, 12);
         btnHistory.addActionListener(e -> showOrderHistoryDialog());
         rightMetaPanel.add(btnHistory);
 
         // Nút đăng xuất
-        JButton btnLogout = createStyledButton("🚪 Đăng xuất", COLOR_DANGER, Color.WHITE, 12);
+        JButton btnLogout = createStyledButton("Đăng xuất", COLOR_DANGER, Color.WHITE, 12);
         btnLogout.addActionListener(e -> logout());
         rightMetaPanel.add(btnLogout);
 
@@ -260,7 +258,7 @@ public class POSMainForm extends JFrame {
         JPanel topBox = new JPanel(new BorderLayout(6, 6));
         topBox.setOpaque(false);
 
-        JLabel lblMenuTitle = new JLabel("📋 THỰC ĐƠN ĐỒ UỐNG");
+        JLabel lblMenuTitle = new JLabel("THỰC ĐƠN ĐỒ UỐNG");
         lblMenuTitle.setFont(new Font("Segoe UI", Font.BOLD, 14));
         lblMenuTitle.setForeground(COLOR_DARK);
         lblMenuTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
@@ -374,7 +372,7 @@ public class POSMainForm extends JFrame {
         spnQuantity.setFont(new Font("Segoe UI", Font.BOLD, 14));
         bottomActionPanel.add(spnQuantity);
 
-        btnAddToCart = createStyledButton("➕ Thêm vào giỏ", COLOR_ACCENT, Color.WHITE, 13);
+        btnAddToCart = createStyledButton("Thêm vào giỏ", COLOR_ACCENT, Color.WHITE, 13);
         btnAddToCart.setPreferredSize(new Dimension(160, 36));
         btnAddToCart.addActionListener(e -> addProductToCart());
         bottomActionPanel.add(btnAddToCart);
@@ -398,7 +396,7 @@ public class POSMainForm extends JFrame {
         JPanel cartHeader = new JPanel(new BorderLayout());
         cartHeader.setOpaque(false);
 
-        JLabel lblCartTitle = new JLabel("🛒 ĐƠN HÀNG TẠM TÍNH");
+        JLabel lblCartTitle = new JLabel("ĐƠN HÀNG TẠM TÍNH");
         lblCartTitle.setFont(new Font("Segoe UI", Font.BOLD, 14));
         lblCartTitle.setForeground(COLOR_DARK);
 
@@ -467,15 +465,15 @@ public class POSMainForm extends JFrame {
         JPanel cartControlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 6));
         cartControlPanel.setOpaque(false);
 
-        btnDecreaseQty = createStyledButton("➖ Giảm 1", Color.WHITE, COLOR_DARK, 11);
+        btnDecreaseQty = createStyledButton("- Giảm 1", Color.WHITE, COLOR_DARK, 11);
         btnDecreaseQty.setBorder(new LineBorder(COLOR_BORDER, 1));
         btnDecreaseQty.addActionListener(e -> changeQuantity(-1));
 
-        btnIncreaseQty = createStyledButton("➕ Tăng 1", Color.WHITE, COLOR_DARK, 11);
+        btnIncreaseQty = createStyledButton("+ Tăng 1", Color.WHITE, COLOR_DARK, 11);
         btnIncreaseQty.setBorder(new LineBorder(COLOR_BORDER, 1));
         btnIncreaseQty.addActionListener(e -> changeQuantity(1));
 
-        btnRemoveCartItem = createStyledButton("✕ Xóa món", COLOR_DANGER, Color.WHITE, 11);
+        btnRemoveCartItem = createStyledButton("Xóa món", COLOR_DANGER, Color.WHITE, 11);
         btnRemoveCartItem.addActionListener(e -> removeSelectedCartItem());
 
         cartControlPanel.add(btnDecreaseQty);
@@ -623,7 +621,7 @@ public class POSMainForm extends JFrame {
         changeRow.add(lblChangeMoneyVal, BorderLayout.EAST);
 
         // Nút Thanh toán lớn
-        btnCheckout = createStyledButton("⚡ XÁC NHẬN THANH TOÁN (F9)", COLOR_ACCENT, Color.WHITE, 15);
+        btnCheckout = createStyledButton("XÁC NHẬN THANH TOÁN (F9)", COLOR_ACCENT, Color.WHITE, 15);
         btnCheckout.setPreferredSize(new Dimension(220, 48));
         btnCheckout.setFont(new Font("Segoe UI", Font.BOLD, 15));
         btnCheckout.addActionListener(e -> handleCheckout());
@@ -648,18 +646,11 @@ public class POSMainForm extends JFrame {
 
     private void loadCategories() {
         cboCategories.removeAllItems();
-        cboCategories.addItem(new Category(0, "✨ -- Tất cả danh mục --"));
+        cboCategories.addItem(new Category(0, "-- Tất cả danh mục --"));
 
         List<Category> list = categoryDAO.getAll();
         for (Category cat : list) {
-            String prefix = "🥤 ";
-            if (cat.getCategoryName().contains("Trà Sữa")) prefix = "🧋 ";
-            else if (cat.getCategoryName().contains("Quả") || cat.getCategoryName().contains("Trái")) prefix = "🍑 ";
-            else if (cat.getCategoryName().contains("Cà Phê") || cat.getCategoryName().contains("Cafe")) prefix = "☕ ";
-            else if (cat.getCategoryName().contains("Đá Xay")) prefix = "🍧 ";
-            else if (cat.getCategoryName().contains("Topping")) prefix = "🍮 ";
-
-            cboCategories.addItem(new Category(cat.getId(), prefix + cat.getCategoryName()));
+            cboCategories.addItem(new Category(cat.getId(), cat.getCategoryName()));
         }
     }
 
@@ -1017,7 +1008,7 @@ public class POSMainForm extends JFrame {
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 4));
         bottom.setOpaque(false);
 
-        JButton btnViewSelected = createStyledButton("📄 Xem lại biên lai này", COLOR_PRIMARY, Color.WHITE, 12);
+        JButton btnViewSelected = createStyledButton("Xem lại biên lai này", COLOR_PRIMARY, Color.WHITE, 12);
         btnViewSelected.addActionListener(e -> {
             int row = tblHistory.getSelectedRow();
             if (row < 0) {
