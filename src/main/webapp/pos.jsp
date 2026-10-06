@@ -97,6 +97,11 @@
             </div>
         </div>
 
+        <!-- Nút Quản Lý Sản Phẩm -->
+        <a href="<%= request.getContextPath() %>/products" class="btn-orders-nav">
+            <span>Quản lý món</span>
+        </a>
+
         <!-- Nút Xem Lịch Sử Đơn Hàng -->
         <a href="<%= request.getContextPath() %>/orders" class="btn-orders-nav">
             <span>Lịch sử đơn</span>

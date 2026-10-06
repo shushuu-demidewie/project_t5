@@ -30,5 +30,14 @@
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!-- Khai báo ProductManageServlet -->
+  <servlet>
+    <servlet-name>ProductManageServlet</servlet-name>
+    <servlet-class>controller.ProductManageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductManageServlet</servlet-name>
+    <url-pattern>/products</url-pattern>
+  </servlet-mapping>
 
 </web-app>

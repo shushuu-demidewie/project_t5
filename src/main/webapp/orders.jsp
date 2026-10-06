@@ -57,6 +57,9 @@
     </div>
 
     <div class="nav-actions">
+        <a href="<%= request.getContextPath() %>/products" class="btn-nav-pos" style="background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border); margin-right: 8px;">
+            <span>Quản lý món</span>
+        </a>
         <a href="<%= request.getContextPath() %>/pos" class="btn-nav-pos">
             <span>Quay lại Bán hàng (POS)</span>
         </a>
